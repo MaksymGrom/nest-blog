@@ -1,0 +1,15 @@
+POST {{host}}auth/login
+Content-Type: application/json
+
+< ./auth.json
+
+> {%
+client.global.set("auth_token", response.body.accessToken);
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 201, "Response status is not 201");
+});
+
+client.test("Request contains accessToken", function() {
+  client.assert(!!response.body.accessToken, "Request does not contain accessToken");
+});
+%}
