@@ -220,4 +220,25 @@ describe('MenuService Unit Test', () => {
       expect(menuService.getMenu()).toHaveLength(0);
     });
   });
+
+  describe('Sorting', () => {
+    it('Узлы должны сортироваться', () => {
+      menuService.add({
+        id: 'bar',
+        parentId: ROOT_MENU_NODE_ID,
+        sortOrder: 20,
+        name: 'bar',
+        href: 'https://bar.com',
+      });
+      menuService.add({
+        id: 'foo',
+        parentId: ROOT_MENU_NODE_ID,
+        sortOrder: 10,
+        name: 'foo',
+        href: 'https://foo.com',
+      });
+      const menu = menuService.getMenu();
+      expect(menu[0].id).toBe('foo');
+    })
+  })
 });
